@@ -1,68 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Landing Page</title>
     <link rel="stylesheet" href="home.css">
 </head>
+
 <body>
 
-<!-- NAVBAR -->
+    <!-- NAVBAR -->
 
-<header class="navbar">
-     <div class="logo">
+    <header class="navbar">
+        <div class="logo">
             <img src="../../logo.png">
         </div>
-    <nav>
-        <a href="home.html">Home</a>
-        <a href="../About_us/about.html">About Us</a>
-        <a href="../Learning/learn.html">Learning</a>
-        <a href="../Pricing/pricing.html">Pricing</a>
-        <a href="../Contact_us/contact.html">Contact</a>
-    </nav>
-    <button class="btn-start">
-        <a href="../Login/login.html">Get Started</a>
-    </button>
-</header>
+        <nav>
+            <a href="home.html">Home</a>
+            <a href="../About_us/about.html">About Us</a>
+            <a href="../Learning/learn.html">Learning</a>
+            <a href="../Pricing/pricing.html">Pricing</a>
+            <a href="../Contact_us/contact.html">Contact</a>
+        </nav>
+        <button class="btn-start">
+            <a href="../Login/login.html">Get Started</a>
+        </button>
+    </header>
 
-<!-- HERO SECTION -->
-<section class="hero">
-    <div class="hero-content">
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
             <h1>GestureTalk AI</h1>
             <p>
-                A powerful AI platform that understands sign language through your device's camera, converts signs into text in real time, and provides instant translation into global languages. GestureTalk AI makes communication accessible, inclusive, and truly universal.
+                A powerful AI platform that understands sign language through your device's camera, converts signs into
+                text in real time, and provides instant translation into global languages. GestureTalk AI makes
+                communication accessible, inclusive, and truly universal.
             </p>
             <button class="info-btn">
                 <a href="Frontend/About/about.html">More Info</a>
             </button>
         </div>
-</section>
+    </section>
 
-<!-- CARDS SECTION -->
-<section class="cards">
-       <div class="card">
-        <h3>Live Video Interpretation</h3>
-        <p>
-            Convert sign language gestures into text instantly through your live camera using real-time AI recognition.
-        </p>
-        <button class="card-btn">Use</button>
-    </div>
+    <!-- CARDS SECTION -->
+    <section class="cards">
+        <div class="card">
+            <h3>Live Video Interpretation</h3>
+            <p>
+                Convert sign language gestures into text instantly through your live camera using real-time AI
+                recognition.
+            </p>
+            <button class="card-btn">Use</button>
+        </div>
 
-    <div class="card">
-        <h3>Language Translator</h3>
-        <p>
-            Translate interpreted sign language text into any language for seamless global communication.
-        </p>
-        <button class="card-btn">Use</button>
-    </div>
-</section>
+        <!-- <div class="card">
+            <h3>Language Translator</h3>
+            <p>
+                Translate interpreted sign language text into any language for seamless global communication.
+            </p>
+            <button class="card-btn">Use</button>
+        </div> -->
+
+        <div class="card">
+            <h3>Upload Image</h3>
+            <p>
+                Upload a static image of a hand sign to test the AI translation engine instantly.
+            </p>
+            <button class="card-btn" onclick="window.location.href='../Upload/upload.html'">
+                Try Now
+            </button>
+        </div>
+    </section>
 
 
-<!-- CHATBOT (GLOBAL) -->
-<iframe
-  src="Frontend/Chatbot/chatbox.html"
-  title="Chatbot"
-  style="
+    <!-- CHATBOT (GLOBAL) -->
+    <iframe src="Frontend/Chatbot/chatbox.html" title="Chatbot" style="
     position: fixed;
     bottom: 0;
     right: 0;
@@ -71,43 +83,43 @@
     border: none;
     z-index: 9999;
     background: transparent;
-  "
-></iframe>
+  "></iframe>
 
 
-<!-- FOOTER -->
-<footer class="footer">
-    <div class="footer-container">
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
 
-        <div class="footer-column">
-            <h3>Follow Us</h3>
-            <a href="#">Facebook</a>
-            <a href="#">Twitter</a>
-            <a href="#">Instagram</a>
-            <a href="#">Youtube</a>
+            <div class="footer-column">
+                <h3>Follow Us</h3>
+                <a href="#">Facebook</a>
+                <a href="#">Twitter</a>
+                <a href="#">Instagram</a>
+                <a href="#">Youtube</a>
+            </div>
+
+            <div class="footer-column">
+                <h3>Links</h3>
+                <a href="../About_us/about.html">About Us</a>
+                <a href="../Learning/learn.html">Learning</a>
+                <a href="../Pricing/pricing.html">Pricing</a>
+                <a href="../Contact_us/contact.html">Contact</a>
+            </div>
+
+            <div class="footer-column">
+                <h3>Made by</h3>
+                <p>SquirtleGang</p>
+                <p>Kolkata, West Bengal</p>
+                <p>India</p>
+            </div>
+
         </div>
 
-        <div class="footer-column">
-            <h3>Links</h3>
-            <a href="../About_us/about.html">About Us</a>
-        <a href="../Learning/learn.html">Learning</a>
-        <a href="../Pricing/pricing.html">Pricing</a>
-        <a href="../Contact_us/contact.html">Contact</a>
-        </div>
-
-        <div class="footer-column">
-            <h3>Made by</h3>
-            <p>SquirtleGang</p>
-            <p>Kolkata, West Bengal</p>
-            <p>India</p>
-        </div>
-
-    </div>
-
-    <p class="copyright">
-        Copyright © 2025 All rights reserved | This template is made with ♥
-    </p>
-</footer>
+        <p class="copyright">
+            Copyright © 2025 All rights reserved | This template is made with ♥
+        </p>
+    </footer>
 
 </body>
+
 </html>
