@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload Image - GestureTalk AI</title>
     <style>
         /* --- Internal CSS to keep it simple --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
-        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
         body {
             background: linear-gradient(135deg, #a3c3ff, #9bcdeb);
             min-height: 100vh;
@@ -24,11 +30,16 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
-        .logo { font-size: 22px; font-weight: bold; color: #1f3bb3; text-decoration: none; }
-        
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #1f3bb3;
+            text-decoration: none;
+        }
+
         .nav-link {
             text-decoration: none;
             color: #333;
@@ -44,7 +55,7 @@
             background: white;
             padding: 40px;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
 
@@ -58,9 +69,13 @@
             background: #f9fbff;
         }
 
-        .upload-area:hover { background-color: #eef4ff; }
+        .upload-area:hover {
+            background-color: #eef4ff;
+        }
 
-        #fileInput { display: none; }
+        #fileInput {
+            display: none;
+        }
 
         #preview-image {
             max-width: 100%;
@@ -85,7 +100,10 @@
             margin-top: 10px;
         }
 
-        .action-btn:hover { background: #4c5cff; transform: scale(1.05); }
+        .action-btn:hover {
+            background: #4c5cff;
+            transform: scale(1.05);
+        }
 
         /* Results */
         .result-box {
@@ -96,8 +114,17 @@
             display: none;
         }
 
-        .result-text { font-size: 32px; font-weight: bold; color: #1f3bb3; }
-        .confidence-text { color: #666; font-size: 14px; margin-top: 5px; }
+        .result-text {
+            font-size: 32px;
+            font-weight: bold;
+            color: #1f3bb3;
+        }
+
+        .confidence-text {
+            color: #666;
+            font-size: 14px;
+            margin-top: 5px;
+        }
 
         /* Loader */
         .loader {
@@ -110,15 +137,50 @@
             margin: 20px auto;
             display: none;
         }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Add this to fix Google Translate layout issues */
+        .VIpgJd-ZVi9od-ORHb-OEVmcd {
+            display: none !important;
+        }
+
+        /* Hides Google Bar */
+        .goog-te-gadget-simple {
+            background-color: rgba(255, 255, 255, 0.2) !important;
+            border: 1px solid #ccc !important;
+            padding: 5px !important;
+            border-radius: 4px !important;
+        }
     </style>
 </head>
+
 <body>
 
     <header>
         <a href="../Landingpage/home.html" class="logo">GestureTalk AI</a>
+        <div id="google_translate_element"></div>
         <a href="../Landingpage/home.html" class="nav-link">Back to Home</a>
     </header>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement(
+                { pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE },
+                'google_translate_element'
+            );
+        }
+    </script>
+    <script type="text/javascript"
+        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
     <section class="upload-container">
         <h1>Test Sign Language</h1>
@@ -128,7 +190,7 @@
             <p style="color: #555;">Click to select an image</p>
             <img id="preview-image" src="" alt="Preview">
         </div>
-        
+
         <input type="file" id="fileInput" accept="image/*" onchange="previewFile()">
 
         <button class="action-btn" onclick="uploadAndPredict()">Interpret</button>
@@ -198,4 +260,5 @@
         }
     </script>
 </body>
+
 </html>

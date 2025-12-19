@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Live Interpreter - GestureTalk AI</title>
     <style>
         /* --- Dark Theme to match Home --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif; }
-        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
         body {
-            background: linear-gradient(135deg, #0a1f44, #0b1f4d); /* Dark Blue Theme */
+            background: linear-gradient(135deg, #0a1f44, #0b1f4d);
+            /* Dark Blue Theme */
             color: white;
             min-height: 100vh;
             display: flex;
@@ -26,11 +33,22 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .logo { font-size: 22px; font-weight: bold; color: #b5c0f1; text-decoration: none; }
-        .nav-link { text-decoration: none; color: #b5c0f1; font-weight: 500; font-size: 16px; }
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #b5c0f1;
+            text-decoration: none;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #b5c0f1;
+            font-weight: 500;
+            font-size: 16px;
+        }
 
         /* Main Video Container */
         .video-container {
@@ -46,13 +64,15 @@
         }
 
         /* Stacking Video and Canvas */
-        #webcam, #output-canvas {
+        #webcam,
+        #output-canvas {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            transform: scaleX(-1); /* Mirror effect */
+            transform: scaleX(-1);
+            /* Mirror effect */
         }
 
         /* Controls */
@@ -72,9 +92,20 @@
             transition: 0.3s;
         }
 
-        .btn-start { background: #4caf50; color: white; }
-        .btn-stop { background: #f44336; color: white; }
-        .btn:hover { opacity: 0.9; transform: scale(1.05); }
+        .btn-start {
+            background: #4caf50;
+            color: white;
+        }
+
+        .btn-stop {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: scale(1.05);
+        }
 
         /* Prediction Display */
         .output-box {
@@ -86,15 +117,53 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .output-text { font-size: 32px; font-weight: bold; color: #a293ca; }
+        .output-text {
+            font-size: 32px;
+            font-weight: bold;
+            color: #a293ca;
+        }
+
+        /* CSS to make Google Translate look good on Dark Theme */
+        #google_translate_element {
+            margin: 0 20px;
+        }
+
+        .goog-te-gadget-simple {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+            /* Semi-transparent */
+            border: 1px solid rgba(255, 255, 255, 0.3) !important;
+            padding: 6px 12px !important;
+            border-radius: 20px !important;
+            color: white !important;
+        }
+
+        .goog-te-gadget-simple span {
+            color: #b5c0f1 !important;
+            /* Match your text color */
+        }
     </style>
 </head>
+
 <body>
 
     <header>
         <a href="../Landingpage/home.html" class="logo">GestureTalk AI</a>
+        <div id="google_translate_element"></div>
         <a href="../Landingpage/home.html" class="nav-link">Back to Home</a>
     </header>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement(
+                { pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE },
+                'google_translate_element'
+            );
+        }
+    </script>
+    <script type="text/javascript"
+        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <script src="script.js"></script>
 
     <div class="video-container">
         <video id="webcam" autoplay playsinline></video>
@@ -113,4 +182,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>
