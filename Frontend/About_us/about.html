@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us</title>
+
+<link rel="stylesheet" href="about.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+     <div class="logo">
+            <img src="../../logo.png">
+        </div>
+        <nav>
+            <a href="../../index.html">Home</a>
+            <a href="../About/about.html">About us</a>
+            <a href="../Learning/learn.html">Learning</a>
+            <a href="../Pricing/pricing.html">Pricing</a>
+            <a href="../Contact_us/contact.html">Contact</a>
+        </nav>
+         <button class="btn-start">
+             <a href="../Login/indexlgn.html">Get Started</a>
+        </button>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <h1>About Our Platform</h1>
+    <p>Empowering learners with AI-powered sign language interpretation.</p>
+</section>
+
+<!-- MISSION -->
+<section class="mission">
+    <h2>Our Mission</h2>
+    <p>
+        Our mission is to make communication seamless and inclusive for everyone.  
+        We leverage artificial intelligence and real-time interpretation tools to  
+        help bridge the communication gap between the deaf, hard-of-hearing, and hearing communities.  
+        We believe that technology should create opportunities — not barriers.
+    </p>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="why-choose">
+    <h2>Why Choose Us</h2>
+    <p class="choose-subtitle">We build technology that makes communication easier, faster, and more inclusive.</p>
+
+    <div class="choose-container">
+
+        <div class="choose-card">
+            <div class="choose-icon">⚡</div>
+            <h3>Real-Time Accuracy</h3>
+            <p>Our AI engine interprets signs instantly with high precision and continuous improvements.</p>
+        </div>
+
+        <div class="choose-card">
+            <div class="choose-icon">📸</div>
+            <h3>Camera Based Detection</h3>
+            <p>No gloves or sensors needed — just your device camera for smooth interpretation.</p>
+        </div>
+
+        <div class="choose-card">
+            <div class="choose-icon">🤖</div>
+            <h3>Powered by AI/ML</h3>
+            <p>Using advanced machine learning models for gesture recognition and smart predictions.</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- TEAM -->
+<section class="team-section">
+    <h2>Meet Our Team</h2>
+
+    <div class="team-container">
+
+        <div class="team-card">
+            <img src="supratim.jpg"> 
+            <h3>Supratim Ghosh</h3>
+            <p>Backend Developer</p>
+        </div>
+
+        <div class="team-card">
+            <img src="sonam.jpg">
+            <h3>Sonam Das</h3>
+            <p>Frontend Developer</p>
+        </div>
+
+        <div class="team-card">
+            <img src="rupayan.jpg">
+            <h3>Rupayan Ghosh</h3>
+            <p>Frontend & AI/ML Developer</p>
+        </div>
+
+        <div class="team-card">
+            <img src="Sworno.jpg">
+            <h3>Sworno Das</h3>
+            <p>Frontend Developer</p>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- FAQ -->
+<section class="faq">
+    <h2>Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+        <div class="faq-question">How does the interpreter work?</div>
+        <div class="faq-answer">We use machine learning models to detect hand gestures and convert them into text in real-time.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">Can I use it on mobile?</div>
+        <div class="faq-answer">Yes! Our platform is fully responsive and works smoothly on all screen sizes.</div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">Is the service free?</div>
+        <div class="faq-answer">We offer both free and premium versions based on usage and features.</div>
+    </div>
+
+
+   
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-container">
+
+        <div class="footer-column">
+            <h3>Follow Us</h3>
+            <a href="#">Facebook</a>
+            <a href="#">Twitter</a>
+            <a href="#">Instagram</a>
+            <a href="#">Youtube</a>
+        </div>
+
+        <div class="footer-column">
+            <h3>Links</h3>
+            <a href="../About/about.html">About us</a>
+            <a href="../Learning/learn.html">Learning</a>
+            <a href="../Pricing/pricing.html">Pricing</a>
+            <a href="../Contact_us/contact.html">Contact</a>
+        </div>
+
+        <div class="footer-column">
+            <h3>Made by</h3>
+            <p>SquirtleGang</p>
+            <p>Kolkata, West Bengal</p>
+            <p>India</p>
+        </div>
+
+    </div>
+
+    <p class="copyright">
+        Copyright © 2025 All rights reserved | This template is made with ♥
+    </p>
+</footer>
+
+<script>
+  
+
+/* FAQ */
+document.querySelectorAll(".faq-item").forEach(item => {
+  item.addEventListener("click", () => {
+    const ans = item.querySelector(".faq-answer");
+    if (ans) {
+      ans.style.display = ans.style.display === "block" ? "none" : "block";
+    }
+  });
+});
+
+</script>
+
+</body>
+</html>
+
