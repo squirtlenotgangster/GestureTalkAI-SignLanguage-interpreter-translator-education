@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Interpreter - GestureTalk AI</title>
+    <style>
+        /* --- Dark Theme to match Home --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif; }
+        
+        body {
+            background: linear-gradient(135deg, #0a1f44, #0b1f4d); /* Dark Blue Theme */
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Navbar */
+        header {
+            width: 100%;
+            background: rgba(35, 40, 74, 0.55);
+            backdrop-filter: blur(5px);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logo { font-size: 22px; font-weight: bold; color: #b5c0f1; text-decoration: none; }
+        .nav-link { text-decoration: none; color: #b5c0f1; font-weight: 500; font-size: 16px; }
+
+        /* Main Video Container */
+        .video-container {
+            position: relative;
+            margin-top: 40px;
+            width: 640px;
+            height: 480px;
+            background: #000;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(98, 140, 225, 0.3);
+            overflow: hidden;
+            border: 3px solid #a293ca;
+        }
+
+        /* Stacking Video and Canvas */
+        #webcam, #output-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: scaleX(-1); /* Mirror effect */
+        }
+
+        /* Controls */
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-start { background: #4caf50; color: white; }
+        .btn-stop { background: #f44336; color: white; }
+        .btn:hover { opacity: 0.9; transform: scale(1.05); }
+
+        /* Prediction Display */
+        .output-box {
+            margin-top: 20px;
+            padding: 20px 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .output-text { font-size: 32px; font-weight: bold; color: #a293ca; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="../Landingpage/home.html" class="logo">GestureTalk AI</a>
+        <a href="../Landingpage/home.html" class="nav-link">Back to Home</a>
+    </header>
+
+    <div class="video-container">
+        <video id="webcam" autoplay playsinline></video>
+        <canvas id="output-canvas"></canvas>
+    </div>
+
+    <div class="controls">
+        <button class="btn btn-start" onclick="startVideo()">Start Camera</button>
+        <button class="btn btn-stop" onclick="stopVideo()">Stop</button>
+    </div>
+
+    <div class="output-box">
+        <p style="font-size: 14px; opacity: 0.7;">Detected Sign:</p>
+        <div class="output-text" id="prediction">--</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
