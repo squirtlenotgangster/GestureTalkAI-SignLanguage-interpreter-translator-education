@@ -6,16 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Live Interpreter - GestureTalk AI</title>
     <style>
-        /* --- Dark Theme to match Home --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Poppins", sans-serif;
-        }
-
+    /* --- Dark Theme to match Home --- */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
         body {
-            background: linear-gradient(135deg, #0a1f44, #0b1f4d);
+            background: linear-gradient(135deg, #041355);
             /* Dark Blue Theme */
             color: white;
             min-height: 100vh;
@@ -23,6 +22,19 @@
             flex-direction: column;
             align-items: center;
         }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: -0.5;
+            background: linear-gradient(
+            180deg,
+    #162773 0%,
+    #35305c 50%,
+    #0e1e65 100%
+    );
+  
+    }
 
         /* Navbar */
         header {
@@ -50,10 +62,75 @@
             font-size: 16px;
         }
 
+    /* =========================
+    NAVBAR
+    ========================= */
+        
+    .navbar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        padding: 6px 60px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: rgba(35, 40, 74, 0.55);
+        backdrop-filter: blur(5px);
+        z-index: 1000;
+    }
+
+
+    /* LOGO BIGGER */
+    .logo img {
+        height: 75px;
+        width: auto;
+    }
+
+
+/* BACK TO HOME BUTTON */
+.btn-start {
+ background: linear-gradient(135deg, #0e1e65, #35305c);
+  border: 2px solid #a293ca;
+  border-radius: 30px;
+  padding: 10px 24px;
+  cursor: pointer;
+}
+
+.btn-start a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+#google_translate_element {
+    position: relative;
+    z-index: 9999 !important;
+}
+
+/* Target the dropdown text specifically */
+.goog-te-combo {
+    color: #ffffff !important; /* Forces text to white */
+    background-color: transparent !important;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+/* Change the background of the options list so you can see them */
+.goog-te-combo option {
+    background-color: #1a1a2e !important; /* Match your dark background */
+    color: #ffffff !important;
+}
+
+/* Optional: Change the color when the user hovers or clicks */
+.goog-te-combo:focus {
+    outline: none;
+    border: 1px solid #4CAF50; /* Match your green button color */
+}
         /* Main Video Container */
         .video-container {
             position: relative;
-            margin-top: 40px;
+            margin-top: 110px;
             width: 640px;
             height: 480px;
             background: #000;
@@ -61,6 +138,8 @@
             box-shadow: 0 0 30px rgba(98, 140, 225, 0.3);
             overflow: hidden;
             border: 3px solid #a293ca;
+            z-index: 1; /* Lower than navbar */
+            
         }
 
         /* Stacking Video and Canvas */
@@ -141,17 +220,28 @@
             color: #b5c0f1 !important;
             /* Match your text color */
         }
+        
     </style>
 </head>
 
 <body>
 
-    <header>
-        <a href="../Landingpage/home.html" class="logo">GestureTalk AI</a>
+    <!-- NAVBAR -->
+
+    <header class="navbar">
+        <div class="logo">
+            <img src="../../logo.png">
+        </div>
+        
         <div id="google_translate_element"></div>
-        <a href="../Landingpage/home.html" class="nav-link">Back to Home</a>
+
+
+        <button class="btn-start">
+         <a href="../Landingpage/home.html">Back To Home</a>
+    </button>
     </header>
 
+    /* JS */
     <script type="text/javascript">
         function googleTranslateElementInit() {
             new google.translate.TranslateElement(
