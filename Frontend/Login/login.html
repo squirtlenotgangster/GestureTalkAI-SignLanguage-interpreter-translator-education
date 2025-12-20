@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login/Signup Form</title>
   <link rel="stylesheet" href="login.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
   <header>
@@ -14,9 +14,9 @@
     </button>
   </header>
   <div class="container">
-    <!--Login Form-->
+    
     <div class="form-box Login">
-      <form action="#">
+      <form action="#" id="loginForm">
         <h1>Login</h1>
         <div class="input-box">
           <input type="text" placeholder="Username" required>
@@ -40,9 +40,8 @@
       </form>
     </div>
 
-    <!--Register Form-->
     <div class="form-box register">
-      <form action="#">
+      <form action="#" id="registerForm">
         <h1>Registration</h1>
         <div class="input-box">
           <input type="text" placeholder="Username" required>
@@ -67,16 +66,13 @@
       </form>
     </div>
 
-    <!--Toggle Box-->
     <div class="toggle-box">
-      <!--Toggle Box Left-->
       <div class="toggle-panel toggle-left">
-        <h1>Hello,  Welcome!</h1>
+        <h1>Hello, Welcome!</h1>
         <p>Don't have an account?</p>
         <button class="btn register-btn">Register</button>
       </div>
 
-      <!--Toggle Box Right-->
       <div class="toggle-panel toggle-right">
         <h1>Welcome Back!</h1>
         <p>Already have an account?</p>
@@ -86,5 +82,4 @@
   </div>
 </body>
 <script src="login.js"></script>
-
 </html>
