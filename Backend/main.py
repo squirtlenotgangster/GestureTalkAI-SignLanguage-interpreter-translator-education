@@ -1,5 +1,7 @@
-from fastapi import FastAPI, File, UploadFile, HTTPException
+from fastapi import FastAPI, File, UploadFile, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy.orm import Session
+from passlib.context import CryptContext
 import cv2
 import numpy as np
 import mediapipe as mp
@@ -7,9 +9,32 @@ import tensorflow as tf
 import pickle
 import os
 
+# Import our new database files
+import models, schemas, database
+
+# --- DATABASE SETUP ---
+models.Base.metadata.create_all(bind=database.engine)
+
+def get_db():
+    db = database.SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+# --- SECURITY SETUP ---
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+def get_password_hash(password):
+    return pwd_context.hash(password)
+
+def verify_password(plain_password, hashed_password):
+    return pwd_context.verify(plain_password, hashed_password)
+
+# --- APP SETUP ---
 app = FastAPI()
 
-# --- CONFIGURATION ---
+# Allow frontend to talk to backend
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -18,47 +43,72 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Paths
+# --- AI SETUP ---
 MODEL_PATH = os.path.join("..", "Model", "asl_model.h5")
 LABEL_PATH = os.path.join("..", "Model", "labels.pickle")
 
-# --- LOAD RESOURCES ---
 model = None
 labels_dict = {}
 
 try:
-    # 1. Load the Model
-    # compile=False avoids potential errors with custom optimizers in older TF versions
     model = tf.keras.models.load_model(MODEL_PATH, compile=False)
-    
-    # 2. Load the Pickle Labels
     with open(LABEL_PATH, 'rb') as f:
         labels_dict = pickle.load(f)
-        
     print("✅ Custom ASL Model & Labels loaded successfully!")
-    
 except Exception as e:
-    print(f"❌ Critical Error loading model/labels: {e}")
+    print(f"❌ Critical Error loading model: {e}")
 
-# --- MEDIAPIPE SETUP ---
 mp_hands = mp.solutions.hands
-# static_image_mode=True is BETTER for single image uploads (like we use in the backend)
-hands = mp_hands.Hands(
-    static_image_mode=True, 
-    max_num_hands=1, 
-    min_detection_confidence=0.5
-)
+hands = mp_hands.Hands(static_image_mode=True, max_num_hands=1, min_detection_confidence=0.5)
+
+
+# --- ROUTES ---
 
 @app.get("/")
 def home():
-    return {"message": "Custom ASL Backend is Ready"}
+    return {"message": "Backend is Running"}
 
+# 1. REGISTER
+@app.post("/register", response_model=schemas.UserResponse)
+def register_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    # Check if username exists
+    if db.query(models.User).filter(models.User.username == user.username).first():
+        raise HTTPException(status_code=400, detail="Username already taken")
+    
+    # Check if email exists
+    if db.query(models.User).filter(models.User.email == user.email).first():
+        raise HTTPException(status_code=400, detail="Email already registered")
+    
+    hashed_pw = get_password_hash(user.password)
+    new_user = models.User(username=user.username, email=user.email, hashed_password=hashed_pw)
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    return new_user
+
+# 2. LOGIN
+@app.post("/login")
+def login_user(user: schemas.UserLogin, db: Session = Depends(get_db)):
+    db_user = db.query(models.User).filter(models.User.username == user.username).first()
+    if not db_user or not verify_password(user.password, db_user.hashed_password):
+        raise HTTPException(status_code=400, detail="Invalid username or password")
+    
+    return {"message": "Login successful", "username": db_user.username}
+
+# 3. CONTACT
+@app.post("/contact")
+def submit_contact(contact: schemas.ContactCreate, db: Session = Depends(get_db)):
+    new_msg = models.ContactMessage(name=contact.name, email=contact.email, message=contact.message)
+    db.add(new_msg)
+    db.commit()
+    return {"message": "Message sent successfully"}
+
+# 4. PREDICT
 @app.post("/predict")
 async def predict_sign(file: UploadFile = File(...)):
     if model is None:
         raise HTTPException(status_code=500, detail="Model is not loaded")
 
-    # 1. Read Image
     try:
         contents = await file.read()
         nparr = np.frombuffer(contents, np.uint8)
@@ -66,51 +116,21 @@ async def predict_sign(file: UploadFile = File(...)):
     except Exception:
         raise HTTPException(status_code=400, detail="Invalid image file")
 
-    # 2. Prepare for MediaPipe
     img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    
-    # 3. Detect Hand
     results = hands.process(img_rgb)
     
-    # If no hand found, return early
     if not results.multi_hand_landmarks:
-        return {
-            "prediction": "No Hand Detected", 
-            "confidence": 0.0,
-            "index": -1
-        }
+        return {"prediction": "No Hand Detected", "confidence": 0.0}
 
-    # 4. Extract Landmarks (The exact logic from your run_model.py)
     data_aux = []
-    
-    # We only take the first hand detected
     hand_landmarks = results.multi_hand_landmarks[0]
-    
     for i in range(len(hand_landmarks.landmark)):
-        x = hand_landmarks.landmark[i].x
-        y = hand_landmarks.landmark[i].y
-        data_aux.append(x)
-        data_aux.append(y)
+        data_aux.append(hand_landmarks.landmark[i].x)
+        data_aux.append(hand_landmarks.landmark[i].y)
     
-    # 5. Predict
-    # Model expects shape (1, 42) -> 21 points * 2 coords (x, y)
     try:
         prediction = model.predict(np.array([data_aux]), verbose=0)
-        predicted_index = np.argmax(prediction)
-        confidence = float(np.max(prediction))
-        
-        # Get the character from your dictionary
-        predicted_char = labels_dict[predicted_index]
-
-        return {
-            "prediction": predicted_char,
-            "confidence": confidence,
-            "index": int(predicted_index)
-        }
-
-    except Exception as e:
-        print(f"Prediction Error: {e}")
-        return {
-            "prediction": "Error", 
-            "confidence": 0.0
-        }
+        index = np.argmax(prediction)
+        return {"prediction": labels_dict[index], "confidence": float(np.max(prediction))}
+    except Exception:
+        return {"prediction": "Error", "confidence": 0.0}
